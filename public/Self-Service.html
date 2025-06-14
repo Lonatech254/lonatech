@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Self-Service Portal | LonaTech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .service-card {
+            transition: box-shadow 0.2s;
+        }
+        .service-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .modal-header {
+            background: #0d6efd;
+            color: #fff;
+        }
+        .service-icon {
+            font-size: 2.5rem;
+            color: #0d6efd;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .footer {
+            background: #212529;
+            color: #fff;
+            padding: 2rem 0;
+        }
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+    </style>
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">LonaTech Self-Service</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5 bg-light text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Empower Yourself with Our Self-Service Tools</h1>
+            <p class="lead mb-4">Access a suite of professional services you can use on your own. Click any service to get started and see the requirements.</p>
+            <a href="#services" class="btn btn-primary btn-lg">Explore Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="mb-4 text-center fw-bold">Our Self-Service Offerings</h2>
+            <div class="row g-4">
+                <!-- Resume Builder -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-file-earmark-person"></i></div>
+                            <h5 class="card-title">Resume Builder</h5>
+                            <p class="card-text">Create a professional resume in minutes. Choose templates, fill in your details, and download instantly.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#resumeModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cover Letter Generator -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-envelope-paper"></i></div>
+                            <h5 class="card-title">Cover Letter Generator</h5>
+                            <p class="card-text">Generate a tailored cover letter for your job applications. Just provide your details and job description.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#coverLetterModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Website Builder -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-globe"></i></div>
+                            <h5 class="card-title">Portfolio Website Builder</h5>
+                            <p class="card-text">Build your own portfolio website. Select a design, add your projects, and publish online.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#portfolioModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Business Card Designer -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-person-badge"></i></div>
+                            <h5 class="card-title">Business Card Designer</h5>
+                            <p class="card-text">Design and download your own business cards. Choose from templates and customize your info.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#businessCardModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Invoice Generator -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-receipt"></i></div>
+                            <h5 class="card-title">Invoice Generator</h5>
+                            <p class="card-text">Create professional invoices for your clients. Enter your details, items, and download as PDF.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#invoiceModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Appointment Scheduler -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-calendar-check"></i></div>
+                            <h5 class="card-title">Appointment Scheduler</h5>
+                            <p class="card-text">Schedule appointments with ease. Set your availability and let clients book slots online.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#appointmentModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Certificate Generator -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-award"></i></div>
+                            <h5 class="card-title">Certificate Generator</h5>
+                            <p class="card-text">Generate certificates for events or achievements. Customize names, dates, and download instantly.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#certificateModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Feedback Form Builder -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-chat-dots"></i></div>
+                            <h5 class="card-title">Feedback Form Builder</h5>
+                            <p class="card-text">Create custom feedback forms for your business or event. Share links and collect responses.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Registration Page -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card service-card h-100">
+                        <div class="card-body text-center">
+                            <div class="service-icon mb-3"><i class="bi bi-calendar-event"></i></div>
+                            <h5 class="card-title">Event Registration Page</h5>
+                            <p class="card-text">Set up an event registration page. Collect attendee info and manage registrations online.</p>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventModal">View Requirements</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals for Requirements -->
+    <!-- Resume Builder Modal -->
+    <div class="modal fade" id="resumeModal" tabindex="-1" aria-labelledby="resumeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resumeModalLabel"><i class="bi bi-file-earmark-person me-2"></i>Resume Builder Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Full Name</li>
+              <li>Contact Information (Email, Phone, Address)</li>
+              <li>Professional Summary</li>
+              <li>Work Experience (Company, Role, Duration, Description)</li>
+              <li>Education (Institution, Degree, Year)</li>
+              <li>Skills</li>
+              <li>Certifications (optional)</li>
+              <li>References (optional)</li>
+              <li>Profile Photo (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Resume Builder</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Cover Letter Modal -->
+    <div class="modal fade" id="coverLetterModal" tabindex="-1" aria-labelledby="coverLetterModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="coverLetterModalLabel"><i class="bi bi-envelope-paper me-2"></i>Cover Letter Generator Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Your Name & Contact Information</li>
+              <li>Recipient's Name & Company (if known)</li>
+              <li>Job Title & Reference Number (if any)</li>
+              <li>Job Description or Ad</li>
+              <li>Key Skills/Experiences to Highlight</li>
+              <li>Why You’re Interested in the Role</li>
+              <li>Signature (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Cover Letter Generator</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Portfolio Website Modal -->
+    <div class="modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="portfolioModalLabel"><i class="bi bi-globe me-2"></i>Portfolio Website Builder Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Your Name & Bio</li>
+              <li>Profile Photo</li>
+              <li>Contact Information</li>
+              <li>Project Details (Title, Description, Links, Images)</li>
+              <li>Skills & Technologies</li>
+              <li>Social Media Links (optional)</li>
+              <li>Resume (optional)</li>
+              <li>Preferred Template/Theme</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Portfolio Builder</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Business Card Modal -->
+    <div class="modal fade" id="businessCardModal" tabindex="-1" aria-labelledby="businessCardModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessCardModalLabel"><i class="bi bi-person-badge me-2"></i>Business Card Designer Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Full Name</li>
+              <li>Job Title</li>
+              <li>Company Name</li>
+              <li>Contact Information (Phone, Email, Address)</li>
+              <li>Logo (optional)</li>
+              <li>Preferred Design/Template</li>
+              <li>Social Media Handles (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Business Card Designer</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Invoice Generator Modal -->
+    <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="invoiceModalLabel"><i class="bi bi-receipt me-2"></i>Invoice Generator Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Your Business Name & Logo</li>
+              <li>Contact Information</li>
+              <li>Client Name & Contact</li>
+              <li>Invoice Number</li>
+              <li>Invoice Date & Due Date</li>
+              <li>List of Items/Services (Description, Quantity, Price)</li>
+              <li>Tax/Discount (optional)</li>
+              <li>Payment Terms</li>
+              <li>Notes (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Invoice Generator</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Appointment Scheduler Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="appointmentModalLabel"><i class="bi bi-calendar-check me-2"></i>Appointment Scheduler Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Your Name/Business Name</li>
+              <li>Contact Information</li>
+              <li>Available Dates & Times</li>
+              <li>Appointment Duration</li>
+              <li>Service Types (if any)</li>
+              <li>Client Information to Collect (Name, Email, Phone)</li>
+              <li>Confirmation Message (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Appointment Scheduler</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Certificate Generator Modal -->
+    <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="certificateModalLabel"><i class="bi bi-award me-2"></i>Certificate Generator Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Recipient Name</li>
+              <li>Event/Reason for Certificate</li>
+              <li>Date</li>
+              <li>Signature/Issuer Name</li>
+              <li>Logo (optional)</li>
+              <li>Certificate Template</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Certificate Generator</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Feedback Form Builder Modal -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel"><i class="bi bi-chat-dots me-2"></i>Feedback Form Builder Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Form Title</li>
+              <li>Questions/Fields to Include</li>
+              <li>Response Types (Text, Rating, Multiple Choice, etc.)</li>
+              <li>Thank You Message (optional)</li>
+              <li>Notification Email (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Feedback Form Builder</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Event Registration Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel"><i class="bi bi-calendar-event me-2"></i>Event Registration Page Requirements</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Event Name & Description</li>
+              <li>Date & Time</li>
+              <li>Venue/Location</li>
+              <li>Organizer Contact Info</li>
+              <li>Registration Fields (Name, Email, etc.)</li>
+              <li>Ticket Types/Prices (optional)</li>
+              <li>Event Banner/Image (optional)</li>
+            </ul>
+            <hr>
+            <a href="#" class="btn btn-primary">Start Event Registration Page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="mb-4 text-center fw-bold">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                            Are these services free to use?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Most of our self-service tools are free. Some advanced features may require a premium account.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                            Do I need to create an account?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            You can use most services without an account. However, creating an account lets you save and manage your work.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                            Is my data secure?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, we use industry-standard security measures to protect your data and privacy.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq4">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                            Can I get support if I need help?
+                        </button>
+                    </h2>
+                    <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely! Visit our <a href="#contact">Contact</a> section to reach our support team.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="mb-4 text-center fw-bold">Contact Us</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form>
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Message</label>
+                            <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h5>LonaTech Self-Service</h5>
+                    <p class="mb-0">Empowering you with easy-to-use professional tools.</p>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Contact</h6>
+                    <ul class="list-unstyled">
+                        <li>Email: <a href="mailto:support@lonatech.com">support@lonatech.com</a></li>
+                        <li>Phone: <a href="tel:+1234567890">+1 234 567 890</a></li>
+                        <li>
+                            <a href="#"><i class="bi bi-facebook me-2"></i></a>
+                            <a href="#"><i class="bi bi-twitter me-2"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center small">
+                &copy; 2024 LonaTech. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
