@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auth Portal - Instaglow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bfa6;
+      --secondary: #1f2937;
+      --gradient: linear-gradient(135deg, #00bfa6 60%, #1f2937 100%);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gradient), url('https://images.unsplash.com/photo-1542060748-10c28b62716f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 380px;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--secondary);
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      background: var(--gradient);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .toggle-btn {
+      margin-top: 18px;
+      color: var(--secondary);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .toggle-btn:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      margin-bottom: 1rem;
+      padding: 12px;
+      border-radius: 6px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .message.success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      border: 1px solid #badbcc;
+    }
+
+    .message.error {
+      background-color: #f8d7da;
+      color: #842029;
+      border: 1px solid #f5c2c7;
+    }
+
+    .insta-gradient {
+      position: absolute;
+      top: 20px;
+      left: 10px;
+      background: linear-gradient(135deg, #64f8e4 60%, #4e6688 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #00bfa6c0 60%, #1f2937b4 100%);
+      z-index: 1500;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .spinner {
+      border: 6px solid white;
+      border-top: 6px solid transparent;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loader-text {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: white;
+      font-weight: 500;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Modal -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="spinner"></div>
+    <div class="loader-text">Creating Account...</div>
+  </div>
+
+  <a href="javascript:history.back()" class="insta-gradient">← Back</a>
+
+  <div class="container">
+    <div id="messageBox" class="message"></div>
+
+    <!-- Register Form -->
+    <div id="register-form-container" style="display: none;">
+      <h2>Create Account</h2>
+      <form id="register-form" autocomplete="off">
+        <input type="text" name="first_name" placeholder="First Name" required />
+        <input type="text" name="last_name" placeholder="Last Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form-container">
+      <h2>Welcome Back</h2>
+      <form id="login-form" autocomplete="off">
+        <input type="text" id="login-email" placeholder="Email" required />
+        <input type="password" id="login-password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <div class="toggle-btn" id="toggle-btn">Don't have an account? Register</div>
+  </div>
+
+  <form id="hidden-order-form" action="/api/order/create" method="POST" style="display: none;">
+    <input type="hidden" name="serviceId" id="hidden-service-id" />
+  </form>
+
+  <script>
+    const API_URL = '/auth';
+    const modal = document.getElementById("modalOverlay");
+    const messageBox = document.getElementById('messageBox');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const registerFormContainer = document.getElementById('register-form-container');
+    const loginFormContainer = document.getElementById('login-form-container');
+
+    let showLogin = true; // default view
+
+    const serviceId = new URLSearchParams(window.location.search).get('serviceId');
+    if (serviceId) {
+      document.getElementById('hidden-service-id').value = serviceId;
+    }
+
+    function showMessage(msg, type = 'success') {
+      messageBox.textContent = msg;
+      messageBox.className = `message ${type}`;
+      messageBox.style.display = 'block';
+      setTimeout(() => {
+        messageBox.style.display = 'none';
+      }, 4000);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      showLogin = !showLogin;
+      if (showLogin) {
+        registerFormContainer.style.display = 'none';
+        loginFormContainer.style.display = 'block';
+        toggleBtn.textContent = "Don't have an account? Register";
+      } else {
+        registerFormContainer.style.display = 'block';
+        loginFormContainer.style.display = 'none';
+        toggleBtn.textContent = "Already have an account? Login";
+      }
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      modal.style.display = "flex";
+      const form = e.target;
+      const data = {
+        first_name: form.first_name.value,
+        last_name: form.last_name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        password: form.password.value
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+          credentials: 'include'
+        });
+        const result = await res.json();
+        modal.style.display = "none";
+
+        if (res.ok) {
+          showMessage('Registration successful! Redirecting...');
+          setTimeout(() => {
+            if (serviceId) {
+              document.getElementById('hidden-order-form').submit();
+            } else {
+              window.location.href = '/';
+            }
+          }, 1000);
+        } else {
+          throw new Error(result.message || 'Registration failed.');
+        }
+      } catch (err) {
+        modal.style.display = "none";
+        showMessage(err.message, 'error');
+      }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const res = await fetch(`${API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+          credentials: 'include'
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          showMessage('Login successful! Redirecting...');
+          setTimeout(() => {
+            if (serviceId) {
+              document.getElementById('hidden-order-form').submit();
+            } else {
+              window.location.href = '/';
+            }
+          }, 1000);
+        } else {
+          throw new Error(result.message || 'Login failed.');
+        }
+      } catch (err) {
+        showMessage(err.message, 'error');
+      }
+    });
+
+    // Initial render
+    toggleBtn.click(); // Set to login by default
+    toggleBtn.click(); // Reset it back (for consistent init)
+  </script>
+</body>
+
+</html>

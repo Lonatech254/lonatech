@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Service Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* ... (same styles as your original code) ... */
+        body {
+            background: #f8f9fa;
+        }
+        .navbar-brand img { height: 40px; }
+        .bg_accent { background: #1f2937; }
+        .text_accent { color: #1f2937; }
+        .bg_primary { background: #00bfa6; }
+        .btn_primary { background: #00bfa6; }
+        .btn_outline-primary { border: 1px solid #00bfa6; }
+        .text_primary { color: #00bfa6; }
+        .service-header {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            padding: 2rem 2rem 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .service-title { font-size: 2.5rem; font-weight: 700; color: #212529; }
+        .service-category { font-size: 1.1rem; color: #6c757d; margin-bottom: 0.5rem; }
+        .service-price { font-size: 2rem; color: #198754; font-weight: 600; }
+        .service-description { font-size: 1.2rem; color: #343a40; margin-top: 1rem; }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #212529;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 0.5rem;
+        }
+        .step-card, .requirement-card, .sample-card {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+        }
+        .sample-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .badge-mandatory { background: #dc3545; }
+        .badge-optional { background: #0d6efd; }
+        .review-card {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+        }
+        .no-reviews { color: #adb5bd; font-style: italic; }
+        .order-btn { font-size: 1.2rem; padding: 0.75rem 2rem; }
+        .loader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        /* Modal styles */
+        .modal-content {
+            border-radius: 0.5rem;
+        }
+        @media (max-width: 767px) {
+            .service-header { padding: 1rem; }
+            .service-title { font-size: 2rem; }
+            .service-price { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/"><img src="/logo" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/categories">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container mb-5">
+        <div id="service-content">
+            <div class="loader" id="loader">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-white border-top py-4 mt-auto">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2025 LonaTech. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="max-height:60vh;overflow:auto;">
+            <ol>
+              <li>All orders are subject to review and acceptance.</li>
+              <li>Payment must be made in full before service delivery unless otherwise agreed.</li>
+              <li>Delivery timelines are estimates and may vary based on requirements.</li>
+              <li>Client must provide all required information and materials for the service.</li>
+              <li>No refunds after service has commenced unless due to provider error.</li>
+              <li>By placing an order, you agree to our privacy policy and service terms.</li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <div class="form-check me-auto">
+              <input class="form-check-input" type="checkbox" value="" id="acceptTerms">
+              <label class="form-check-label" for="acceptTerms">
+                I have read and accept the terms and conditions
+              </label>
+            </div>
+            <button type="button" class="btn btn-success" id="proceedOrderBtn" disabled>Proceed to Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Helper: get query param
+        function getQueryParam(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        // Format currency
+        function formatCurrency(amount, unit) {
+            return `${unit} ${amount.toLocaleString()}`;
+        }
+
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // Render service details
+        function renderService(service) {
+            return `
+                <div class="service-header mb-4">
+                    <div class="service-category">${service.category ? service.category.name : ''}</div>
+                    <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div>
+                            <h1 class="service-title">${service.name}</h1>
+                            <div class="service-price">${formatCurrency(service.price, service.priceUnit)}</div>
+                        </div>
+                        <button type="button" class="btn btn-success order-btn mt-3 mt-md-0" id="orderNowBtn">
+                            <i class="bi bi-cart-plus"></i> Order Now
+                        </button>
+                    </div>
+                    <div class="service-description">${service.description}</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        ${renderSteps(service.steps)}
+                        ${renderRequirements(service.requirements)}
+                        ${renderReviews(service.reviews)}
+                    </div>
+                    <div class="col-lg-4">
+                        ${renderSamples(service.samples)}
+                    </div>
+                </div>
+                <form id="orderForm" action="/api/order/create" method="POST" style="display:none;">
+                    <input type="hidden" name="serviceId" value="${service.id}">
+                </form>
+            `;
+        }
+
+        // Render steps
+        function renderSteps(steps) {
+            if (!steps || !steps.length) return '';
+            steps = steps.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            return `
+                <div class="mb-4">
+                    <div class="section-title"><i class="bi bi-list-check"></i> Service Steps</div>
+                    ${steps.map(step => `
+                        <div class="step-card mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="fw-bold">${step.name}</div>
+                                <span class="badge bg-secondary">${step.duration_days} day${step.duration_days > 1 ? 's' : ''}</span>
+                            </div>
+                            <div class="text-muted small mb-1">KES ${step.amount.toLocaleString()}</div>
+                            <div>${step.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render requirements
+        function renderRequirements(requirements) {
+            if (!requirements || !requirements.length) return '';
+            requirements = requirements.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            return `
+                <div class="mb-4">
+                    <div class="section-title"><i class="bi bi-clipboard-check"></i> Requirements</div>
+                    ${requirements.map(req => `
+                        <div class="requirement-card mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="fw-bold">${req.name}</div>
+                                <span class="badge ${req.is_mandatory ? 'badge-mandatory' : 'badge-optional'}">
+                                    ${req.is_mandatory ? 'Mandatory' : 'Optional'}
+                                </span>
+                            </div>
+                            <div class="text-muted small">${req.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render samples
+        function renderSamples(samples) {
+            if (!samples || !samples.length) return '';
+            samples = samples.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            return `
+                <div class="mb-4">
+                    <div class="section-title"><i class="bi bi-images"></i> Samples</div>
+                    ${samples.map(sample => `
+                        <div class="sample-card mb-3">
+                            <a href="${sample.link_url}" target="_blank" rel="noopener">
+                                <img src="${sample.image_url}" alt="${sample.name}" class="sample-img mb-2">
+                            </a>
+                            <div class="fw-bold">${sample.name}</div>
+                            <div class="text-muted small">${sample.description}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Render reviews
+        function renderReviews(reviews) {
+            return `
+                <div class="mb-4">
+                    <div class="section-title"><i class="bi bi-chat-left-text"></i> Reviews</div>
+                    ${(!reviews || !reviews.length) ? `<div class="no-reviews">No reviews yet.</div>` :
+                    reviews.map(review => `
+                            <div class="review-card mb-2">
+                                <div class="fw-bold">${review.user_name || 'Anonymous'}</div>
+                                <div class="text-muted small">${formatDate(review.createdAt)}</div>
+                                <div>${review.comment}</div>
+                                <div class="mt-1">${renderStars(review.rating)}</div>
+                            </div>
+                        `).join('')
+                }
+                </div>
+            `;
+        }
+
+        // Render stars for reviews
+        function renderStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<i class="bi ${i <= rating ? 'bi-star-fill text-warning' : 'bi-star text-secondary'}"></i>`;
+            }
+            return stars;
+        }
+
+        // Main fetch and render
+        async function loadService() {
+            const serviceId = getQueryParam('id');
+            const contentDiv = document.getElementById('service-content');
+            const loader = document.getElementById('loader');
+            if (!serviceId) {
+                loader.style.display = 'none';
+                contentDiv.innerHTML = '<div class="error-message">Service ID not specified in URL.</div>';
+                return;
+            }
+            try {
+                const res = await fetch(`/api/services/${serviceId}`);
+                if (!res.ok) throw new Error('Service not found');
+                const data = await res.json();
+                loader.style.display = 'none';
+                contentDiv.innerHTML = renderService(data.service);
+
+                // Attach order button handler
+                const orderBtn = document.getElementById('orderNowBtn');
+                if (orderBtn) {
+                    orderBtn.addEventListener('click', function () {
+                        const termsModal = new bootstrap.Modal(document.getElementById('termsModal'));
+                        document.getElementById('acceptTerms').checked = false;
+                        document.getElementById('proceedOrderBtn').disabled = true;
+                        termsModal.show();
+                    });
+                }
+
+                // Terms checkbox and proceed button
+                const acceptTerms = document.getElementById('acceptTerms');
+                const proceedOrderBtn = document.getElementById('proceedOrderBtn');
+                if (acceptTerms && proceedOrderBtn) {
+                    acceptTerms.addEventListener('change', function () {
+                        proceedOrderBtn.disabled = !acceptTerms.checked;
+                    });
+                    proceedOrderBtn.addEventListener('click', function () {
+                        // Submit the hidden order form
+                        document.getElementById('orderForm').submit();
+                    });
+                }
+            } catch (err) {
+                loader.style.display = 'none';
+                contentDiv.innerHTML = `<div class="error-message">${err.message}</div>`;
+            }
+        }
+
+        // Bootstrap icons
+        (function loadBootstrapIcons() {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css';
+            document.head.appendChild(link);
+        })();
+
+        // Run on page load
+        window.addEventListener('DOMContentLoaded', loadService);
+    </script>
+</body>
+
+</html>

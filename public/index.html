@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lonatech Solutions - Web & Software Development Company</title>
+    <meta name="description"
+        content="Lonatech Solutions offers web, mobile, and software development, cyber security, and all tech services. We build websites, Android/iOS apps, backend systems, and more.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f8f9fa;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        ul li a:hover {
+            color: #00bfa6;
+            transform: scale(1.2);
+        }
+
+        .bg_accent {
+            background: #1f2937;
+        }
+
+        .text_accent {
+            color: #1f2937;
+        }
+
+        .bg_primary {
+            background: #00bfa6;
+        }
+
+        .btn_primary {
+            background: #00bfa6;
+        }
+
+        .text_primary {
+            color: #00bfa6;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #00bfa6 60%, #1f2937 100%);
+            color: #fff;
+            padding: 100px 0 80px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .service-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .tech-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            margin: 0 10px 10px 0;
+        }
+
+        .about-section {
+            background: #fff;
+            padding: 60px 0;
+        }
+
+        .tech-stack-section {
+            background: #f1f3f6;
+            padding: 60px 0;
+        }
+
+        .contact-section {
+            background: #fff;
+            padding: 60px 0;
+        }
+
+        .footer {
+            background: #212529;
+            color: #fff;
+            padding: 40px 0 20px 0;
+        }
+
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: none;
+            background: #00bfa6;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+            transition: background 0.2s;
+        }
+
+        .scroll-top:hover {
+            background: #6610f2;
+        }
+
+        .divider {
+            border-top: 2px solid #00bfa6;
+            width: 60px;
+            margin: 20px auto;
+        }
+
+        .animated {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .animated.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media(max-width: 768px) {
+
+            .hero-section {
+                color: #fff;
+                text-align: center;
+            }
+
+            .hero-section h1 {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .hero-section p {
+                font-size: 0.9rem;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href=""><img src="/logo" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link  text_primary" href="">Home</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="/categories">Services</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#tech-stack">Tech Stack</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <h1 class="mb-3">Empowering Your Digital Vision</h1>
+            <p class="mb-4">Lonatech Solutions is your trusted partner for web, mobile, and software development. We
+                build robust websites, Android & iOS apps, backend systems, and deliver comprehensive tech and cyber
+                services for businesses of all sizes.</p>
+            <a href="#services" class="btn btn-light btn-lg shadow">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5" id="services">
+        <div class="container">
+            <h2 class="text-center mb-2">Our Services</h2>
+            <div class="divider"></div>
+            <div class="text-center my-4">
+                <a href="categories" class="btn btn_primary px-2 py-1 shadow-lg"
+                    style="font-size:1rem; border-radius:1rem;">
+                    <i class="bi bi-search me-2"></i> Explore Services
+                </a>
+            </div>
+            <div id="categories" class="row g-4 mt-4"></div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack-section" id="tech-stack">
+        <div class="container">
+            <h2 class="text-center mb-2">Our Technology Stack</h2>
+            <div class="divider"></div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-10">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center mb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                            alt="HTML5" class="tech-logo" title="HTML5">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"
+                            class="tech-logo" title="CSS3">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                            alt="JavaScript" class="tech-logo" title="JavaScript">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                            alt="Node.js" class="tech-logo" title="Node.js">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                            alt="Express.js" class="tech-logo" title="Express.js">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+                            alt="MySQL" class="tech-logo" title="MySQL">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                            alt="PostgreSQL" class="tech-logo" title="PostgreSQL">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                            alt="Flutter" class="tech-logo" title="Flutter">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"
+                            class="tech-logo" title="Java">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                            alt="Python" class="tech-logo" title="Python">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                            alt="React" class="tech-logo" title="React">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg"
+                            alt="Angular" class="tech-logo" title="Angular">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"
+                            class="tech-logo" title="PHP">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg"
+                            alt="Laravel" class="tech-logo" title="Laravel">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aws/aws-original.svg" alt="AWS"
+                            class="tech-logo" title="AWS">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                            alt="Docker" class="tech-logo" title="Docker">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg"
+                            alt="Kubernetes" class="tech-logo" title="Kubernetes">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"
+                            class="tech-logo" title="Git">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"
+                            alt="Linux" class="tech-logo" title="Linux">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>HTML5, CSS3, JavaScript, Bootstrap</li>
+                                <li>Node.js, Express.js, REST APIs</li>
+                                <li>MySQL, PostgreSQL, MongoDB</li>
+                                <li>Flutter, Java (Android), Swift (iOS)</li>
+                                <li>React, Angular, Vue.js</li>
+                                <li>PHP, Laravel, Python, Django</li>
+                                <li>Cloud: AWS, Azure, Google Cloud</li>
+                                <li>DevOps: Docker, Kubernetes, CI/CD</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Git, GitHub, Bitbucket</li>
+                                <li>Linux & Windows Servers</li>
+                                <li>Firebase, Redis, Elasticsearch</li>
+                                <li>Payment Gateway Integration</li>
+                                <li>API Integration (REST, GraphQL)</li>
+                                <li>Security & Encryption Libraries</li>
+                                <li>Testing: Jest, Mocha, Selenium</li>
+                                <li>And many more modern tools!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="text-center mb-2">About Lonatech Solutions</h2>
+            <div class="divider"></div>
+            <div class="row align-items-center mt-4">
+                <div class="col-md-6 animated">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+                        alt="Team" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6 animated">
+                    <h4 class="mb-3">Who We Are</h4>
+                    <p>
+                        Lonatech Solutions is a leading web and software development company dedicated to delivering
+                        innovative, scalable, and secure digital solutions. Our team of experienced developers,
+                        designers, and tech experts are passionate about helping businesses grow and succeed in the
+                        digital era.
+                    </p>
+                    <h5 class="mt-4">Why Choose Us?</h5>
+                    <ul>
+                        <li>Full-stack expertise: frontend, backend, mobile, cloud, and more</li>
+                        <li>Client-centric approach and transparent communication</li>
+                        <li>Agile development and timely delivery</li>
+                        <li>Focus on quality, security, and performance</li>
+                        <li>End-to-end support from idea to launch and beyond</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="text-center mb-2">Contact Us</h2>
+            <div class="divider"></div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8">
+                        <form
+    action="https://formspree.io/f/mjkwjzbg"
+    method="POST" id="contactForm" class="shadow p-4 rounded bg-light"
+  >
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Your Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="col-12">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control" id="subject" name="subject" placeholder="What's this about?" required>
+      </div>
+      <div class="col-12">
+        <label for="message" class="form-label">Your Message</label>
+        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn_primary px-4">
+          <i class="fas fa-paper-plane me-2"></i>Send Message
+        </button>
+      </div>
+    </div>
+  </form>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4 text-center mb-3">
+                    <i class="bi bi-envelope-fill fs-2 text_primary"></i>
+                    <p class="mb-0">lonatechsolutions@gmail.com</p>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <i class="bi bi-telephone-fill fs-2 text_primary"></i>
+                    <p class="mb-0">+254 792 371 765</p>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <i class="bi bi-geo-alt-fill fs-2 text_primary"></i>
+                    <p class="mb-0">Kenya, East Africa, Africa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>Lonatech Solutions</h5>
+                    <p>Building the future of technology, one solution at a time.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tech-stack">Tech Stack</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h6>Follow Us</h6>
+                    <a href="#" class="me-2"><i class="bi bi-facebook fs-4"></i></a>
+                    <a href="#" class="me-2"><i class="bi bi-twitter fs-4"></i></a>
+                    <a href="#" class="me-2"><i class="bi bi-linkedin fs-4"></i></a>
+                    <a href="#"><i class="bi bi-github fs-4"></i></a>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <small>&copy; 2024 Lonatech Solutions. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS, Icons, and Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script>
+        // Scroll to top button
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'block';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Animate on scroll
+        function animateOnScroll() {
+            document.querySelectorAll('.animated').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('DOMContentLoaded', animateOnScroll, loadCategories());
+
+        // Contact form validation and fake submission
+     
+        // Smooth scroll for navbar links
+        document.querySelectorAll('.navbar-nav a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.hash) {
+                    e.preventDefault();
+                    document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>"']/g, function (m) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                })[m];
+            });
+        }
+        async function loadCategories() {
+            const container = document.getElementById('categories');
+            try {
+                const res = await fetch('/api/categories');
+                if (!res.ok) throw new Error('Failed to fetch categories');
+                const categories = await res.json();
+                if (!Array.isArray(categories) || categories.length === 0) {
+                    container.innerHTML = '<div class="alert alert-warning text-center">No categories found.</div>';
+                    return;
+                }
+                let html = '';
+                categories.sort((a, b) => a.order - b.order);
+                categories.forEach(category => {
+                    html += `
+                                    <div class="col-md-6 col-lg-4"><a href="/category?id=${category.id}"> 
+                    <div class="card service-card h-100 shadow-sm animated">
+                        <div class="card-body">
+                            <h5 class="card-title">${escapeHTML(category.name)}</h5>
+                            <p class="card-text">${escapeHTML(category.description)}</p>
+                            <ul>
+                                    ${category.services && category.services.length > 0
+                            ? category.services
+                                .sort((a, b) => a.order - b.order)
+                                .map(service => `<li><a href="/service?id=${service.id}">${escapeHTML(service.name)}</a></li>`).join('')
+                            : `<div class="alert alert-info mb-0">No services available in this category yet.</div>`
+                        }
+                            </ul>
+                        </div>
+                    </div>
+                </a></div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch (err) {
+                container.innerHTML = `<div class="alert alert-danger text-center">Error loading categories. Please try again later.</div>`;
+            } finally {
+                document.getElementById('loading-spinner')?.remove();
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

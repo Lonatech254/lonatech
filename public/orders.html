@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .table-responsive { margin-top: 30px; }
+        .order-note { max-width: 300px; word-break: break-word; }
+        .status-badge { font-size: 1em; }
+        .order-header { margin-top: 40px; margin-bottom: 20px; }
+        .order-card { margin-bottom: 20px; }
+        .order-id { font-weight: bold; color: #0d6efd; }
+        .order-date { font-size: 0.95em; color: #6c757d; }
+        .order-actions .btn { margin-right: 5px; }
+        .order-table th, .order-table td { vertical-align: middle; }
+        .order-table th { background-color: #e9ecef; }
+        .order-table { background-color: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .spinner-container { display: flex; justify-content: center; align-items: center; min-height: 200px; }
+        .search-bar { max-width: 400px; margin-bottom: 20px; }
+        .pagination { justify-content: center; }
+        .no-orders { text-align: center; color: #888; margin-top: 50px; }
+        .status-filter .btn { margin-right: 5px; margin-bottom: 5px; }
+        .status-filter .btn.active { pointer-events: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Order Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="order-header text-center">
+            <h1 class="display-5">Orders</h1>
+            <p class="lead">View and manage all orders placed by users.</p>
+        </div>
+
+        <div class="row justify-content-between align-items-center mb-3">
+            <div class="col-md-6">
+                <form id="searchForm" class="d-flex search-bar">
+                    <input class="form-control me-2" type="search" placeholder="Search by ID, Status, Note..." aria-label="Search" id="searchInput">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <button class="btn btn-success" id="refreshBtn">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <div class="status-filter mb-3" id="statusFilter">
+            <button class="btn btn-outline-secondary active" data-status="all" type="button">All</button>
+            <button class="btn btn-outline-warning" data-status="pending" type="button">Pending</button>
+            <button class="btn btn-outline-success" data-status="completed" type="button">Completed</button>
+            <button class="btn btn-outline-danger" data-status="cancelled" type="button">Cancelled</button>
+        </div>
+
+        <div id="ordersContainer" class="table-responsive">
+            <div class="spinner-container" id="loadingSpinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <!-- Orders table will be injected here -->
+        </div>
+
+        <nav>
+            <ul class="pagination" id="pagination">
+                <!-- Pagination items will be injected here -->
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="orderDetailsBody">
+                    <!-- Order details will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.js"></script>
+    <script>
+        // --- Constants ---
+        const ORDERS_API = '/api/order/';
+        const ORDERS_PER_PAGE = 5;
+
+        // --- State ---
+        let orders = [];
+        let filteredOrders = [];
+        let currentPage = 1;
+        let currentStatus = 'all';
+        let currentSearch = '';
+
+        // --- DOM Elements ---
+        const ordersContainer = document.getElementById('ordersContainer');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const pagination = document.getElementById('pagination');
+        const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+        const orderDetailsBody = document.getElementById('orderDetailsBody');
+        const statusFilter = document.getElementById('statusFilter');
+
+        // --- Utility Functions ---
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleString();
+        }
+
+        function getStatusBadge(status) {
+            let color = 'secondary';
+            if (status === 'pending') color = 'warning';
+            else if (status === 'completed') color = 'success';
+            else if (status === 'cancelled') color = 'danger';
+            return `<span class="badge bg-${color} status-badge text-capitalize">${status}</span>`;
+        }
+
+        // --- Fetch Orders ---
+        async function fetchOrders() {
+            loadingSpinner.style.display = 'flex';
+            ordersContainer.innerHTML = '';
+            try {
+                const response = await fetch(ORDERS_API);
+                if (!response.ok) throw new Error('Failed to fetch orders');
+                orders = await response.json();
+                applyFilters();
+            } catch (err) {
+                ordersContainer.innerHTML = `<div class="alert alert-danger">Error loading orders: ${err.message}</div>`;
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        }
+
+        // --- Apply Filters (status + search) ---
+        function applyFilters() {
+            filteredOrders = orders.filter(order => {
+                // Status filter
+                if (currentStatus !== 'all' && order.status !== currentStatus) return false;
+                // Search filter
+                if (currentSearch) {
+                    const query = currentSearch;
+                    return (
+                        order.id.toString().includes(query) ||
+                        order.userId.toString().includes(query) ||
+                        (order.serviceId !== null && order.serviceId.toString().includes(query)) ||
+                        order.status.toLowerCase().includes(query) ||
+                        (order.note && order.note.toLowerCase().includes(query)) ||
+                        formatDate(order.createdAt).toLowerCase().includes(query) ||
+                        formatDate(order.updatedAt).toLowerCase().includes(query)
+                    );
+                }
+                return true;
+            });
+            currentPage = 1;
+            renderOrders();
+        }
+
+        // --- Render Orders Table ---
+        function renderOrders() {
+            if (!filteredOrders.length) {
+                ordersContainer.innerHTML = `<div class="no-orders">No orders found.</div>`;
+                pagination.innerHTML = '';
+                return;
+            }
+
+            const startIdx = (currentPage - 1) * ORDERS_PER_PAGE;
+            const endIdx = startIdx + ORDERS_PER_PAGE;
+            const pageOrders = filteredOrders.slice(startIdx, endIdx);
+
+            let table = `
+                <table class="table table-hover order-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">#ID</th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Service ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Updated At</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for (const order of pageOrders) {
+                table += `
+                    <tr>
+                        <td class="order-id">${order.id}</td>
+                        <td>${order.userId}</td>
+                        <td>${order.serviceId !== null ? order.serviceId : '<span class="text-muted">N/A</span>'}</td>
+                        <td>${getStatusBadge(order.status)}</td>
+                        <td class="order-note">${order.note ? order.note : '<span class="text-muted">No note</span>'}</td>
+                        <td class="order-date">${formatDate(order.createdAt)}</td>
+                        <td class="order-date">${formatDate(order.updatedAt)}</td>
+                        <td class="order-actions">
+                            <button class="btn btn-sm btn-outline-primary" onclick="showOrderDetails(${order.id})">
+                                <i class="bi bi-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            table += `
+                    </tbody>
+                </table>
+            `;
+
+            ordersContainer.innerHTML = table;
+            renderPagination();
+        }
+
+        // --- Render Pagination ---
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            let items = '';
+            for (let i = 1; i <= totalPages; i++) {
+                items += `
+                    <li class="page-item${i === currentPage ? ' active' : ''}">
+                        <button class="page-link" onclick="goToPage(${i})">${i}</button>
+                    </li>
+                `;
+            }
+            pagination.innerHTML = items;
+        }
+
+        // --- Pagination Handler ---
+        window.goToPage = function(page) {
+            currentPage = page;
+            renderOrders();
+        };
+
+        // --- Show Order Details Modal ---
+        window.showOrderDetails = function(orderId) {
+            window.location.href = `/api/order?id=${orderId}`;
+        };
+
+        // --- Search Handler ---
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            currentSearch = searchInput.value.trim().toLowerCase();
+            applyFilters();
+        });
+
+        // --- Status Filter Handler ---
+        statusFilter.addEventListener('click', function(e) {
+            if (e.target.tagName === 'BUTTON') {
+                // Remove active from all
+                Array.from(statusFilter.querySelectorAll('button')).forEach(btn => btn.classList.remove('active'));
+                // Add active to clicked
+                e.target.classList.add('active');
+                currentStatus = e.target.getAttribute('data-status');
+                applyFilters();
+            }
+        });
+
+        // --- Refresh Handler ---
+        refreshBtn.addEventListener('click', fetchOrders);
+
+        // --- Initial Load ---
+        fetchOrders();
+
+        // --- (Extra) Keyboard navigation for pagination ---
+        document.addEventListener('keydown', function(e) {
+            const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
+            if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        });
+    </script>
+</body>
+</html>

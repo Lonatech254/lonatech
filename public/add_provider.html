@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Provider - LonaTech</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .credit-score-badge {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .form-section {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .required:after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 2px;
+        }
+        .project-image-preview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 10px;
+        }
+        .score-indicator {
+            width: 100%;
+            height: 1.5rem;
+            border-radius: 0.75rem;
+            background: #e9ecef;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .score-bar {
+            height: 100%;
+            transition: width 0.5s;
+        }
+        .score-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .input-group-text {
+            min-width: 120px;
+        }
+        .form-check-label {
+            margin-left: 0.5rem;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #e9ecef;
+        }
+        .tab-content {
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">LonaTech</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="mb-4">Add New Provider</h1>
+        <form id="addProviderForm" enctype="multipart/form-data" autocomplete="off">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h4>Personal Information</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="fullName" class="form-label required">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label required">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label required">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="location" class="form-label required">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
+                        <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="bio" class="form-label">Short Bio</label>
+                        <textarea class="form-control" id="bio" name="bio" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Information Section -->
+            <div class="form-section">
+                <h4>Professional Information</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="profession" class="form-label required">Profession</label>
+                        <select class="form-select" id="profession" name="profession" required>
+                            <option value="">Select Profession</option>
+                            <option value="web_developer">Web Developer</option>
+                            <option value="designer">Designer</option>
+                            <option value="seo_specialist">SEO Specialist</option>
+                            <option value="content_writer">Content Writer</option>
+                            <option value="app_developer">App Developer</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="experience" class="form-label required">Years of Experience</label>
+                        <input type="number" class="form-control" id="experience" name="experience" min="0" max="50" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="certifications" class="form-label">Certifications</label>
+                        <input type="text" class="form-control" id="certifications" name="certifications" placeholder="e.g. AWS, PMP, Google Ads">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="education" class="form-label">Education</label>
+                        <input type="text" class="form-control" id="education" name="education" placeholder="e.g. BSc Computer Science">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Credit Score Factors Section -->
+            <div class="form-section">
+                <h4>Credit Score Factors</h4>
+                <ul class="nav nav-tabs" id="scoreTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="projects-tab" data-bs-toggle="tab" data-bs-target="#projects" type="button" role="tab">Projects</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab">Skills</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="references-tab" data-bs-toggle="tab" data-bs-target="#references" type="button" role="tab">References</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="verifications-tab" data-bs-toggle="tab" data-bs-target="#verifications" type="button" role="tab">Verifications</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="socials-tab" data-bs-toggle="tab" data-bs-target="#socials" type="button" role="tab">Social Profiles</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="scoreTabsContent">
+                    <!-- Projects Tab -->
+                    <div class="tab-pane fade show active" id="projects" role="tabpanel">
+                        <div class="mb-3">
+                            <label class="form-label required">Upload Project Images</label>
+                            <input class="form-control" type="file" id="projectImages" name="projectImages[]" accept="image/*" multiple>
+                            <div id="projectImagesPreview" class="mt-2 d-flex flex-wrap"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required">Project Links</label>
+                            <div id="projectLinksContainer">
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text">URL</span>
+                                    <input type="url" class="form-control" name="projectLinks[]" placeholder="https://example.com" required>
+                                    <button class="btn btn-outline-secondary remove-link-btn" type="button" style="display:none;">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-primary" id="addProjectLinkBtn">Add Another Link</button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Project Descriptions</label>
+                            <textarea class="form-control" name="projectDescriptions" rows="3" placeholder="Describe your projects..."></textarea>
+                        </div>
+                        <div class="score-indicator">
+                            <div class="score-bar bg-success" id="projectsScoreBar" style="width: 60%;"></div>
+                        </div>
+                        <span class="score-label">Projects Credit Score: <span class="credit-score-badge text-success" id="projectsScore">60</span>/100</span>
+                    </div>
+                    <!-- Skills Tab -->
+                    <div class="tab-pane fade" id="skills" role="tabpanel">
+                        <div class="mb-3">
+                            <label class="form-label required">List Your Skills</label>
+                            <input type="text" class="form-control" id="skillsInput" name="skills" placeholder="e.g. HTML, CSS, JavaScript, React" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Upload Skill Certificates</label>
+                            <input class="form-control" type="file" id="skillCertificates" name="skillCertificates[]" accept=".pdf,.jpg,.png" multiple>
+                        </div>
+                        <div class="score-indicator">
+                            <div class="score-bar bg-info" id="skillsScoreBar" style="width: 50%;"></div>
+                        </div>
+                        <span class="score-label">Skills Credit Score: <span class="credit-score-badge text-info" id="skillsScore">50</span>/100</span>
+                    </div>
+                    <!-- References Tab -->
+                    <div class="tab-pane fade" id="references" role="tabpanel">
+                        <div id="referencesContainer">
+                            <div class="reference-entry mb-3">
+                                <label class="form-label required">Reference Name</label>
+                                <input type="text" class="form-control mb-2" name="referenceNames[]" required>
+                                <label class="form-label required">Reference Contact</label>
+                                <input type="text" class="form-control mb-2" name="referenceContacts[]" required>
+                                <label class="form-label">Reference Relationship</label>
+                                <input type="text" class="form-control mb-2" name="referenceRelationships[]">
+                                <button class="btn btn-outline-secondary remove-reference-btn" type="button" style="display:none;">Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary" id="addReferenceBtn">Add Another Reference</button>
+                        <div class="score-indicator">
+                            <div class="score-bar bg-warning" id="referencesScoreBar" style="width: 40%;"></div>
+                        </div>
+                        <span class="score-label">References Credit Score: <span class="credit-score-badge text-warning" id="referencesScore">40</span>/100</span>
+                    </div>
+                    <!-- Verifications Tab -->
+                    <div class="tab-pane fade" id="verifications" role="tabpanel">
+                        <div class="mb-3">
+                            <label class="form-label required">Identity Verification</label>
+                            <input class="form-control" type="file" id="identityDocument" name="identityDocument" accept=".pdf,.jpg,.png" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Business Registration Document</label>
+                            <input class="form-control" type="file" id="businessDocument" name="businessDocument" accept=".pdf,.jpg,.png">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Background Check</label>
+                            <select class="form-select" id="backgroundCheck" name="backgroundCheck">
+                                <option value="">Select</option>
+                                <option value="pending">Pending</option>
+                                <option value="passed">Passed</option>
+                                <option value="failed">Failed</option>
+                            </select>
+                        </div>
+                        <div class="score-indicator">
+                            <div class="score-bar bg-danger" id="verificationsScoreBar" style="width: 30%;"></div>
+                        </div>
+                        <span class="score-label">Verifications Credit Score: <span class="credit-score-badge text-danger" id="verificationsScore">30</span>/100</span>
+                    </div>
+                    <!-- Social Profiles Tab -->
+                    <div class="tab-pane fade" id="socials" role="tabpanel">
+                        <div class="mb-3">
+                            <label class="form-label">LinkedIn Profile</label>
+                            <input type="url" class="form-control" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">GitHub Profile</label>
+                            <input type="url" class="form-control" id="github" name="github" placeholder="https://github.com/username">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Personal Website</label>
+                            <input type="url" class="form-control" id="website" name="website" placeholder="https://yourwebsite.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Other Social Links</label>
+                            <input type="url" class="form-control mb-2" name="otherSocials[]" placeholder="https://twitter.com/username">
+                            <input type="url" class="form-control mb-2" name="otherSocials[]" placeholder="https://facebook.com/username">
+                        </div>
+                        <div class="score-indicator">
+                            <div class="score-bar bg-primary" id="socialsScoreBar" style="width: 20%;"></div>
+                        </div>
+                        <span class="score-label">Social Profiles Credit Score: <span class="credit-score-badge text-primary" id="socialsScore">20</span>/100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Factors Section -->
+            <div class="form-section">
+                <h4>Additional Factors</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Awards & Recognitions</label>
+                        <input type="text" class="form-control" name="awards" placeholder="e.g. Best Freelancer 2023">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Memberships</label>
+                        <input type="text" class="form-control" name="memberships" placeholder="e.g. IEEE, ACM">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Languages Spoken</label>
+                        <input type="text" class="form-control" name="languages" placeholder="e.g. English, French, Spanish">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Availability</label>
+                        <select class="form-select" name="availability">
+                            <option value="">Select</option>
+                            <option value="full_time">Full Time</option>
+                            <option value="part_time">Part Time</option>
+                            <option value="freelance">Freelance</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Additional Notes</label>
+                        <textarea class="form-control" name="additionalNotes" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary and Submit -->
+            <div class="form-section">
+                <h4>Summary</h4>
+                <div class="mb-3">
+                    <label class="form-label">Total Estimated Credit Score</label>
+                    <div class="score-indicator">
+                        <div class="score-bar bg-success" id="totalScoreBar" style="width: 40%;"></div>
+                    </div>
+                    <span class="score-label">Total Score: <span class="credit-score-badge text-success" id="totalScore">40</span>/100</span>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success">Submit Provider</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap 5 JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Project Images Preview
+        document.getElementById('projectImages').addEventListener('change', function(event) {
+            const preview = document.getElementById('projectImagesPreview');
+            preview.innerHTML = '';
+            Array.from(event.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'project-image-preview rounded border mb-2';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Add/Remove Project Links
+        document.getElementById('addProjectLinkBtn').addEventListener('click', function() {
+            const container = document.getElementById('projectLinksContainer');
+            const div = document.createElement('div');
+            div.className = 'input-group mb-2';
+            div.innerHTML = `
+                <span class="input-group-text">URL</span>
+                <input type="url" class="form-control" name="projectLinks[]" placeholder="https://example.com" required>
+                <button class="btn btn-outline-secondary remove-link-btn" type="button">Remove</button>
+            `;
+            container.appendChild(div);
+            div.querySelector('.remove-link-btn').addEventListener('click', function() {
+                div.remove();
+            });
+        });
+
+        // Add/Remove References
+        document.getElementById('addReferenceBtn').addEventListener('click', function() {
+            const container = document.getElementById('referencesContainer');
+            const div = document.createElement('div');
+            div.className = 'reference-entry mb-3';
+            div.innerHTML = `
+                <label class="form-label required">Reference Name</label>
+                <input type="text" class="form-control mb-2" name="referenceNames[]" required>
+                <label class="form-label required">Reference Contact</label>
+                <input type="text" class="form-control mb-2" name="referenceContacts[]" required>
+                <label class="form-label">Reference Relationship</label>
+                <input type="text" class="form-control mb-2" name="referenceRelationships[]">
+                <button class="btn btn-outline-secondary remove-reference-btn" type="button">Remove</button>
+            `;
+            container.appendChild(div);
+            div.querySelector('.remove-reference-btn').addEventListener('click', function() {
+                div.remove();
+            });
+        });
+
+        // Show remove buttons for dynamically added links/references
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.remove-link-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+            document.querySelectorAll('.remove-reference-btn').forEach(btn => {
+                btn.style.display = 'none';
+            });
+        });
+
+        // Credit Score Calculation (Demo Only)
+        function updateScores() {
+            // Dummy calculation for demonstration
+            let projectsScore = 60;
+            let skillsScore = 50;
+            let referencesScore = 40;
+            let verificationsScore = 30;
+            let socialsScore = 20;
+            let totalScore = Math.round((projectsScore + skillsScore + referencesScore + verificationsScore + socialsScore) / 5);
+
+            document.getElementById('projectsScore').textContent = projectsScore;
+            document.getElementById('projectsScoreBar').style.width = projectsScore + '%';
+
+            document.getElementById('skillsScore').textContent = skillsScore;
+            document.getElementById('skillsScoreBar').style.width = skillsScore + '%';
+
+            document.getElementById('referencesScore').textContent = referencesScore;
+            document.getElementById('referencesScoreBar').style.width = referencesScore + '%';
+
+            document.getElementById('verificationsScore').textContent = verificationsScore;
+            document.getElementById('verificationsScoreBar').style.width = verificationsScore + '%';
+
+            document.getElementById('socialsScore').textContent = socialsScore;
+            document.getElementById('socialsScoreBar').style.width = socialsScore + '%';
+
+            document.getElementById('totalScore').textContent = totalScore;
+            document.getElementById('totalScoreBar').style.width = totalScore + '%';
+        }
+
+        // Call updateScores on form changes (for demo)
+        document.getElementById('addProviderForm').addEventListener('input', updateScores);
+
+        // Initial score update
+        updateScores();
+
+        // Prevent form submission (demo)
+        document.getElementById('addProviderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Provider submitted! (Demo only)');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Providers Directory</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .provider-card {
+            transition: box-shadow 0.2s;
+        }
+        .provider-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .service-badge {
+            margin-right: 0.25rem;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #dee2e6;
+        }
+        .filter-section {
+            background: #fff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .pagination {
+            justify-content: center;
+        }
+        .service-table th, .service-table td {
+            vertical-align: middle;
+        }
+        .score-bar {
+            height: 1rem;
+            border-radius: 0.5rem;
+        }
+        .score-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .review {
+            background: #f1f3f4;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .review .star-rating {
+            font-size: 1.1rem;
+        }
+        .reviewer-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        .modal-lg {
+            max-width: 900px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">LonaTech Providers</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Providers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Filters -->
+    <div class="container">
+        <div class="filter-section">
+            <form class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label for="serviceType" class="form-label">Service Type</label>
+                    <select class="form-select" id="serviceType">
+                        <option selected>All Services</option>
+                        <option>Web Development</option>
+                        <option>Graphic Design</option>
+                        <option>SEO Optimization</option>
+                        <option>Content Writing</option>
+                        <option>IT Support</option>
+                        <option>Digital Marketing</option>
+                        <option>App Development</option>
+                        <option>Photography</option>
+                        <option>Consulting</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="location" placeholder="City or Region">
+                </div>
+                <div class="col-md-3">
+                    <label for="minScore" class="form-label">Minimum Score</label>
+                    <select class="form-select" id="minScore">
+                        <option selected>Any</option>
+                        <option>4.5+</option>
+                        <option>4.0+</option>
+                        <option>3.5+</option>
+                        <option>3.0+</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Providers List -->
+    <div class="container">
+        <div class="row g-4" id="providers-list">
+            <!-- Provider Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card provider-card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="profile-img me-3">
+                            <div>
+                                <h5 class="card-title mb-0">John Doe</h5>
+                                <div class="text-muted small">Web Developer</div>
+                                <div class="star-rating mt-1">
+                                    <span class="me-1">4.8</span>
+                                    <span>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                    </span>
+                                    <span class="text-muted small ms-1">(120 reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary service-badge">Web Development</span>
+                            <span class="badge bg-success service-badge">SEO</span>
+                            <span class="badge bg-info service-badge">App Development</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small"><i class="bi bi-geo-alt"></i> New York, USA</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="score-label">Service Score:</span>
+                            <div class="progress score-bar mb-1" style="height: 8px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 96%;" aria-valuenow="4.8" aria-valuemin="0" aria-valuemax="5"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#providerModal1">View Profile</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Provider Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card provider-card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="profile-img me-3">
+                            <div>
+                                <h5 class="card-title mb-0">Jane Smith</h5>
+                                <div class="text-muted small">Graphic Designer</div>
+                                <div class="star-rating mt-1">
+                                    <span class="me-1">4.6</span>
+                                    <span>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                    </span>
+                                    <span class="text-muted small ms-1">(98 reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning text-dark service-badge">Graphic Design</span>
+                            <span class="badge bg-secondary service-badge">Branding</span>
+                            <span class="badge bg-info service-badge">Photography</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small"><i class="bi bi-geo-alt"></i> London, UK</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="score-label">Service Score:</span>
+                            <div class="progress score-bar mb-1" style="height: 8px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 92%;" aria-valuenow="4.6" aria-valuemin="0" aria-valuemax="5"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#providerModal2">View Profile</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Provider Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card provider-card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Carlos Rivera" class="profile-img me-3">
+                            <div>
+                                <h5 class="card-title mb-0">Carlos Rivera</h5>
+                                <div class="text-muted small">IT Support Specialist</div>
+                                <div class="star-rating mt-1">
+                                    <span class="me-1">4.9</span>
+                                    <span>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </span>
+                                    <span class="text-muted small ms-1">(210 reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-danger service-badge">IT Support</span>
+                            <span class="badge bg-primary service-badge">Consulting</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small"><i class="bi bi-geo-alt"></i> Madrid, Spain</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="score-label">Service Score:</span>
+                            <div class="progress score-bar mb-1" style="height: 8px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 98%;" aria-valuenow="4.9" aria-valuemin="0" aria-valuemax="5"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#providerModal3">View Profile</button>
+                    </div>
+                </div>
+            </div>
+            <!-- More provider cards can be added here -->
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Providers pagination" class="mt-4">
+            <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Provider Modal 1 -->
+    <div class="modal fade" id="providerModal1" tabindex="-1" aria-labelledby="providerModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="providerModal1Label">John Doe - Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="profile-img mb-3">
+                            <div class="star-rating mb-2">
+                                <span class="me-1">4.8</span>
+                                <span>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </span>
+                                <span class="text-muted small ms-1">(120 reviews)</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="badge bg-primary service-badge">Web Development</span>
+                                <span class="badge bg-success service-badge">SEO</span>
+                                <span class="badge bg-info service-badge">App Development</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-muted small"><i class="bi bi-geo-alt"></i> New York, USA</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="score-label">Service Score:</span>
+                                <div class="progress score-bar mb-1" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 96%;" aria-valuenow="4.8" aria-valuemin="0" aria-valuemax="5"></div>
+                                </div>
+                            </div>
+                            <a href="mailto:johndoe@email.com" class="btn btn-outline-secondary btn-sm mt-2"><i class="bi bi-envelope"></i> Contact</a>
+                        </div>
+                        <div class="col-md-8">
+                            <h6>About John</h6>
+                            <p>John is a highly experienced web developer with over 10 years in the industry. He specializes in building responsive, high-performance websites and applications. John is also skilled in SEO and mobile app development, helping businesses grow their online presence.</p>
+                            <h6 class="mt-4">Services Offered</h6>
+                            <table class="table table-bordered service-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Description</th>
+                                        <th>Score</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Web Development</td>
+                                        <td>Custom websites, e-commerce, CMS</td>
+                                        <td>
+                                            <span class="star-rating">4.9 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$1200+</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SEO Optimization</td>
+                                        <td>On-page, off-page, analytics</td>
+                                        <td>
+                                            <span class="star-rating">4.7 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$500+</td>
+                                    </tr>
+                                    <tr>
+                                        <td>App Development</td>
+                                        <td>iOS & Android apps</td>
+                                        <td>
+                                            <span class="star-rating">4.8 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$2000+</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="mt-4">Recent Reviews</h6>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <span class="text-muted small ms-2">5 days ago</span>
+                                    </div>
+                                    <div class="fw-bold">Emily Carter</div>
+                                    <div>John delivered our new website ahead of schedule and exceeded our expectations. Highly recommended!</div>
+                                </div>
+                            </div>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span class="text-muted small ms-2">2 weeks ago</span>
+                                    </div>
+                                    <div class="fw-bold">Michael Lee</div>
+                                    <div>Great communication and technical skills. Our SEO rankings improved significantly.</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-link btn-sm mt-2">View all reviews</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Provider Modal 2 -->
+    <div class="modal fade" id="providerModal2" tabindex="-1" aria-labelledby="providerModal2Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="providerModal2Label">Jane Smith - Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="profile-img mb-3">
+                            <div class="star-rating mb-2">
+                                <span class="me-1">4.6</span>
+                                <span>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </span>
+                                <span class="text-muted small ms-1">(98 reviews)</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="badge bg-warning text-dark service-badge">Graphic Design</span>
+                                <span class="badge bg-secondary service-badge">Branding</span>
+                                <span class="badge bg-info service-badge">Photography</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-muted small"><i class="bi bi-geo-alt"></i> London, UK</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="score-label">Service Score:</span>
+                                <div class="progress score-bar mb-1" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 92%;" aria-valuenow="4.6" aria-valuemin="0" aria-valuemax="5"></div>
+                                </div>
+                            </div>
+                            <a href="mailto:janesmith@email.com" class="btn btn-outline-secondary btn-sm mt-2"><i class="bi bi-envelope"></i> Contact</a>
+                        </div>
+                        <div class="col-md-8">
+                            <h6>About Jane</h6>
+                            <p>Jane is a creative graphic designer with a passion for branding and visual storytelling. She has worked with startups and established brands to create memorable logos, marketing materials, and digital content.</p>
+                            <h6 class="mt-4">Services Offered</h6>
+                            <table class="table table-bordered service-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Description</th>
+                                        <th>Score</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Graphic Design</td>
+                                        <td>Logos, brochures, digital ads</td>
+                                        <td>
+                                            <span class="star-rating">4.7 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$400+</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Branding</td>
+                                        <td>Brand identity, guidelines</td>
+                                        <td>
+                                            <span class="star-rating">4.5 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$800+</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Photography</td>
+                                        <td>Product, event, portrait</td>
+                                        <td>
+                                            <span class="star-rating">4.6 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$300+</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="mt-4">Recent Reviews</h6>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span class="text-muted small ms-2">1 week ago</span>
+                                    </div>
+                                    <div class="fw-bold">David Brown</div>
+                                    <div>Jane's designs helped our brand stand out. She is very professional and creative.</div>
+                                </div>
+                            </div>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <i class="bi bi-star"></i>
+                                        <span class="text-muted small ms-2">3 weeks ago</span>
+                                    </div>
+                                    <div class="fw-bold">Sophia Turner</div>
+                                    <div>Great experience working with Jane. The branding package was exactly what we needed.</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-link btn-sm mt-2">View all reviews</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Provider Modal 3 -->
+    <div class="modal fade" id="providerModal3" tabindex="-1" aria-labelledby="providerModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="providerModal3Label">Carlos Rivera - Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Carlos Rivera" class="profile-img mb-3">
+                            <div class="star-rating mb-2">
+                                <span class="me-1">4.9</span>
+                                <span>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </span>
+                                <span class="text-muted small ms-1">(210 reviews)</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="badge bg-danger service-badge">IT Support</span>
+                                <span class="badge bg-primary service-badge">Consulting</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-muted small"><i class="bi bi-geo-alt"></i> Madrid, Spain</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="score-label">Service Score:</span>
+                                <div class="progress score-bar mb-1" style="height: 8px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 98%;" aria-valuenow="4.9" aria-valuemin="0" aria-valuemax="5"></div>
+                                </div>
+                            </div>
+                            <a href="mailto:carlosrivera@email.com" class="btn btn-outline-secondary btn-sm mt-2"><i class="bi bi-envelope"></i> Contact</a>
+                        </div>
+                        <div class="col-md-8">
+                            <h6>About Carlos</h6>
+                            <p>Carlos is an IT support specialist with a strong background in troubleshooting, network setup, and consulting for small businesses. He is known for his quick response and effective solutions.</p>
+                            <h6 class="mt-4">Services Offered</h6>
+                            <table class="table table-bordered service-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Description</th>
+                                        <th>Score</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>IT Support</td>
+                                        <td>Remote & onsite troubleshooting</td>
+                                        <td>
+                                            <span class="star-rating">5.0 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$100/hr</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Consulting</td>
+                                        <td>IT strategy, security, upgrades</td>
+                                        <td>
+                                            <span class="star-rating">4.8 <i class="bi bi-star-fill"></i></span>
+                                        </td>
+                                        <td>$150/hr</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="mt-4">Recent Reviews</h6>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <span class="text-muted small ms-2">2 days ago</span>
+                                    </div>
+                                    <div class="fw-bold">Laura Martinez</div>
+                                    <div>Carlos fixed our network issues in no time. Very reliable and knowledgeable.</div>
+                                </div>
+                            </div>
+                            <div class="review d-flex">
+                                <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Reviewer" class="reviewer-img">
+                                <div>
+                                    <div class="star-rating mb-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-half"></i>
+                                        <span class="text-muted small ms-2">1 week ago</span>
+                                    </div>
+                                    <div class="fw-bold">Pedro Gomez</div>
+                                    <div>Excellent consulting service. Helped us upgrade our systems securely.</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-link btn-sm mt-2">View all reviews</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-5 py-4 border-top">
+        <div class="container text-center">
+            <div class="mb-2">
+                <a href="#" class="text-decoration-none me-3">Providers</a>
+                <a href="#" class="text-decoration-none me-3">Services</a>
+                <a href="#" class="text-decoration-none me-3">Reviews</a>
+                <a href="#" class="text-decoration-none">Contact</a>
+            </div>
+            <div class="text-muted small">&copy; 2024 LonaTech. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</body>
+</html></div>

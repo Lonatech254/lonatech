@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LonaTech Blog</title>
+    <meta name="description" content="LonaTech Blog - Latest tech news, tutorials, and insights.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        ul li a:hover {
+            color: #00bfa6;
+            transform: scale(1.2);
+        }
+
+        .bg_accent {
+            background: #1f2937;
+        }
+
+        .text_accent {
+            color: #1f2937;
+        }
+
+        .bg_primary {
+            background: #00bfa6;
+        }
+
+        .btn_primary {
+            background: #00bfa6;
+        }
+
+        .text_primary {
+            color: #00bfa6;
+        }
+
+        .blog-header {
+            background: linear-gradient(135deg, #00bfa6 60%, #1f2937 100%);
+            color: #fff;
+            padding: 60px 0 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .blog-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .blog-header p {
+            font-size: 1.25rem;
+            margin-top: 10px;
+        }
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+        .sidebar {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .sidebar h5 {
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+        .footer {
+            background: #212529;
+            color: #fff;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            border-radius: 20px;
+            padding: 2px 12px;
+            font-size: 0.85rem;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .post-meta {
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+        .pagination .page-link {
+            color: #00bfa6;
+        }
+        .pagination .active .page-link {
+            background-color: #00bfa6;
+            border-color: #00bfa6;
+            color: #fff;
+        }
+        .search-input {
+            border-radius: 20px;
+            padding-left: 16px;
+        }
+        .category-list li {
+            margin-bottom: 8px;
+        }
+        .category-list a {
+            color: #00bfa6;
+            text-decoration: none;
+        }
+        .category-list a:hover {
+            text-decoration: underline;
+        }
+        .recent-posts img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .recent-posts .small {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .newsletter-form input[type="email"] {
+            border-radius: 20px;
+            padding-left: 16px;
+        }
+        .newsletter-form button {
+            border-radius: 20px;
+        }
+        @media (max-width: 991.98px) {
+            .sidebar {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href=""><img src="/logo" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link  text_accent" href="">Home</a></li>
+                    <li class="nav-item"><a class="nav-link  text_primary" href="/blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="/categories">Services</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#tech-stack">Tech Stack</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link  text_accent" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <div class="container">
+            <h1>Welcome to the LonaTech Blog</h1>
+            <p>Your source for the latest tech news, tutorials, and insights.</p>
+            <form class="d-flex justify-content-center mt-4" role="search">
+                <input class="form-control search-input w-50 me-2" type="search" placeholder="Search articles..." aria-label="Search">
+                <button class="btn btn-light" type="submit">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Blog Posts -->
+            <main class="col-lg-8">
+                <div class="row g-4">
+                    <!-- Blog Post Card 1 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="AI Revolution">
+                            <div class="card-body">
+                                <h5 class="card-title">The AI Revolution: What to Expect in 2024</h5>
+                                <p class="card-text">Artificial Intelligence is transforming industries. Discover the trends and predictions for the coming year.</p>
+                                <div class="mb-2">
+                                    <span class="tag">AI</span>
+                                    <span class="tag">Trends</span>
+                                    <span class="tag">2024</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="author-img" alt="Author">
+                                    <span>By John Doe &middot; Jan 10, 2024</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog Post Card 2 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Web Development">
+                            <div class="card-body">
+                                <h5 class="card-title">Modern Web Development: Best Practices</h5>
+                                <p class="card-text">Stay ahead in web development with these essential best practices for 2024 and beyond.</p>
+                                <div class="mb-2">
+                                    <span class="tag">Web</span>
+                                    <span class="tag">Development</span>
+                                    <span class="tag">Best Practices</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="author-img" alt="Author">
+                                    <span>By Jane Smith &middot; Jan 8, 2024</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog Post Card 3 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Cloud Computing">
+                            <div class="card-body">
+                                <h5 class="card-title">Cloud Computing: The Future is Here</h5>
+                                <p class="card-text">Explore how cloud computing is reshaping the tech landscape and what it means for your business.</p>
+                                <div class="mb-2">
+                                    <span class="tag">Cloud</span>
+                                    <span class="tag">Tech</span>
+                                    <span class="tag">Business</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/men/54.jpg" class="author-img" alt="Author">
+                                    <span>By Alex Turner &middot; Jan 5, 2024</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog Post Card 4 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Cybersecurity">
+                            <div class="card-body">
+                                <h5 class="card-title">Cybersecurity in 2024: Staying Safe Online</h5>
+                                <p class="card-text">Learn the latest strategies and tools to protect yourself and your organization from cyber threats.</p>
+                                <div class="mb-2">
+                                    <span class="tag">Cybersecurity</span>
+                                    <span class="tag">Safety</span>
+                                    <span class="tag">2024</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="author-img" alt="Author">
+                                    <span>By Lisa Wong &middot; Jan 2, 2024</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog Post Card 5 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Mobile Apps">
+                            <div class="card-body">
+                                <h5 class="card-title">Building Scalable Mobile Apps</h5>
+                                <p class="card-text">A guide to designing and developing mobile applications that scale with your users.</p>
+                                <div class="mb-2">
+                                    <span class="tag">Mobile</span>
+                                    <span class="tag">Apps</span>
+                                    <span class="tag">Scalability</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/men/77.jpg" class="author-img" alt="Author">
+                                    <span>By Mark Lee &middot; Dec 28, 2023</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog Post Card 6 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Data Science">
+                            <div class="card-body">
+                                <h5 class="card-title">Data Science: Unlocking Insights</h5>
+                                <p class="card-text">How data science is helping organizations make smarter decisions and drive innovation.</p>
+                                <div class="mb-2">
+                                    <span class="tag">Data Science</span>
+                                    <span class="tag">Analytics</span>
+                                    <span class="tag">Innovation</span>
+                                </div>
+                                <div class="d-flex align-items-center post-meta">
+                                    <img src="https://randomuser.me/api/portraits/women/12.jpg" class="author-img" alt="Author">
+                                    <span>By Emily Clark &middot; Dec 20, 2023</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <nav aria-label="Blog pagination" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <span class="page-link">Previous</span>
+                        </li>
+                        <li class="page-item active"><span class="page-link">1</span></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </main>
+            <!-- Sidebar -->
+            <aside class="col-lg-4">
+                <!-- About Widget -->
+                <div class="sidebar mb-4">
+                    <h5>About LonaTech</h5>
+                    <p>We share the latest in technology, programming, and digital innovation. Join our community to stay updated and inspired!</p>
+                </div>
+                <!-- Categories Widget -->
+                <div class="sidebar mb-4">
+                    <h5>Categories</h5>
+                    <ul class="list-unstyled category-list">
+                        <li><a href="#">Artificial Intelligence</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Cloud Computing</a></li>
+                        <li><a href="#">Cybersecurity</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Data Science</a></li>
+                    </ul>
+                </div>
+                <!-- Recent Posts Widget -->
+                <div class="sidebar mb-4 recent-posts">
+                    <h5>Recent Posts</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=60&q=80" alt="AI Revolution">
+                            <div>
+                                <a href="#" class="d-block">The AI Revolution: What to Expect in 2024</a>
+                                <span class="small">Jan 10, 2024</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=60&q=80" alt="Web Development">
+                            <div>
+                                <a href="#" class="d-block">Modern Web Development: Best Practices</a>
+                                <span class="small">Jan 8, 2024</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center mb-3">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=60&q=80" alt="Cloud Computing">
+                            <div>
+                                <a href="#" class="d-block">Cloud Computing: The Future is Here</a>
+                                <span class="small">Jan 5, 2024</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Newsletter Widget -->
+                <div class="sidebar mb-4">
+                    <h5>Subscribe to Newsletter</h5>
+                    <form class="newsletter-form">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                    </form>
+                </div>
+                <!-- Tags Widget -->
+                <div class="sidebar">
+                    <h5>Popular Tags</h5>
+                    <div>
+                        <span class="tag">AI</span>
+                        <span class="tag">Web</span>
+                        <span class="tag">Cloud</span>
+                        <span class="tag">Security</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Data</span>
+                        <span class="tag">Innovation</span>
+                        <span class="tag">Programming</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>LonaTech</h5>
+                    <p>Empowering you with the latest in technology, programming, and digital innovation.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6>Categories</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">AI</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Cloud</a></li>
+                        <li><a href="#">Cybersecurity</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Contact</h6>
+                    <ul class="list-unstyled">
+                        <li>Email: <a href="mailto:info@lonatech.com">info@lonatech.com</a></li>
+                        <li>Twitter: <a href="#">@lonatech</a></li>
+                        <li>LinkedIn: <a href="#">LonaTech</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: #495057;">
+            <div class="text-center">
+                &copy; 2024 LonaTech. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
